@@ -1,0 +1,720 @@
+#ASK made this :|
+#
+#
+#
+#=====================Key Cards========================
+
+command /ReloadCards:
+	permission: dangerzone.reloadcards
+	trigger:
+		if player is op:
+	#========Foundation cards========
+
+			set {L1} to lime stained glass pane named "&8L1-card"
+			set {L2} to yellow stained glass pane named "&8L2-card"
+			set {L3} to orange stained glass pane named "&8L3-card"
+			set {L4} to red stained glass pane named "&8L4-card"
+			set {L5} to purple stained glass pane named "&8L5-card"
+
+	#========Ci cards========
+	
+			set {CI-card} to gray stained glass pane named "&8CI-card"
+			set {CICMDER} to black stained glass pane named "&8CI Commander Card"
+	
+	#========Admin card========
+
+			set {OMNI} to blue stained glass pane named "&8OMNI-card"
+			set line 1 of lore of {OMNI} to "&cDistribution of this Item will"
+			set line 2 of lore of {OMNI} to "&cresult in the Severest of punishments."
+			enchant {OMNI} with curse of vanishing 32000
+
+    	#========Give Cards========
+
+			give {L1} to player
+			give {L2} to player
+			give {L3} to player
+			give {L4} to player
+			give {L5} to player
+			give {CI-card} to player
+			give {CICMDER} to player
+			give {OMNI} to player
+		else:
+			send "&7[&6!&7] &cD&fZone &7[&6!&7] &cYou must Be OP to do this." to player
+
+
+#=========================Buttons==================================
+
+
+on click on button:
+	if gamemode of player is survival:
+		if event-block is acacia button:
+			send action bar "&aAccess Granted" to player
+		if event-block is birch button:
+			if player is not holding {L1} or {L2} or {L3} or {L4} or {L5} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an L1 or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is dark oak button:
+			if player is not holding {L2} or {L3} or {L4} or {L5} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an L2 or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is jungle button:
+			if player is not holding {L3} or {L4} or {L5} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an L3 or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is spruce button:
+			if player is not holding {L4} or {L5} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an L4 or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is oak button:
+			if player is not holding {CI-card} or {CICMDER} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an CI-card or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is stone button:
+			if player is not holding {CICMDER} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an CICMDER or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+
+on right click:
+	if gamemode of player is creative:
+		if event-block is acacia button:
+			send action bar "&aAccess Granted" to player
+		if event-block is birch button:
+			if player is not holding {L1} or {L2} or {L3} or {L4} or {L5} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an L1 or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is dark oak button:
+			if player is not holding {L2} or {L3} or {L4} or {L5} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an L2 or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is jungle button:
+			if player is not holding {L3} or {L4} or {L5} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an L3 or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is spruce button:
+			if player is not holding {L4} or {L5} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an L4 or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is oak button:
+			if player is not holding {CI-card} or {CICMDER} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an CI-card or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is stone button:
+			if player is not holding {CICMDER} or {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Need an CICMDER or Higher)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+		if event-block is lever:
+			if player is not holding {OMNI}:
+				cancel event
+				send action bar "&cAccess Denied &7(Admin Only)" to player
+			else:
+				send action bar "&aAccess Granted" to player
+on click on lever:
+	if gamemode of player is survival:
+		if player is not holding {OMNI}:
+			cancel event
+			send action bar "&cAccess Denied &7(Admin only)" to player
+		else:
+			send action bar "&aAccess Granted" to player
+on right click on lever:
+	if gamemode of player is creative:
+		if player is not holding {OMNI}:
+			cancel event
+			send action bar "&cAccess Denied &7(Admin only)" to player
+		else:
+			send action bar "&aAccess Granted" to player
+
+#================Team kill/Combat Log================
+
+on damage:
+	if attacker is a player:
+		if victim is a player:
+			if attacker has permission "dangerzone.friendly.scpf":
+				if victim has permission "dangerzone.friendly.scpf":
+					cancel event
+					stop
+			else if attacker has permission "dangerzone.friendly.ci":
+				if victim has permission "dangerzone.friendly.ci":
+					cancel event
+					stop
+			set {combat::%attacker%} to false
+			set {combat::%victim%} to false
+			wait 0.1 second
+			set {combat::%attacker%} to true
+			set {combat::%victim%} to true
+			set {timer.%attacker%.%victim%} to 10.1
+			while {combat::%attacker%} or {combat::%victim%} is true:
+				wait 0.1 second
+				if {timer.%attacker%.%victim%} > 0:
+					remove 0.1 from {timer.%attacker%.%victim%}
+					send action bar "&fYou are in combat for &c%{timer.%attacker%.%victim%}% &fSeconds" to attacker
+					send action bar "&fYou are in combat for &c%{timer.%attacker%.%victim%}% &fSeconds" to victim
+				else:
+					delete {timer.%attacker%.%victim%}
+					send action bar "&fYou are no longer in Combat" to attacker
+					send action bar "&fYou are no longer in Combat" to victim
+					set {combat::%attacker%} to false
+					set {combat::%victim%} to false			
+on respawn:
+	set {combat::%player%} to false
+
+on death:
+	set {combat::%player%} to false
+
+
+on quit:
+	if {combat::%player%} is true:
+		if gamemode of player is survival:
+			kill player
+
+on join:
+	wait 0.5 second
+	if {combat::%player%} is true:
+		if gamemode of player is survival:
+			kill player
+			wait 1 second
+			execute console command "jail %player% CombatLog 23s Combat Logging"
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7] &cJailed for combat logging" to player
+			set {combat::%player%} to false
+	set {combat::%player%} to false
+
+command /CombatFalseAll:
+	permission: Dangerzone.CombatFalseAll
+	trigger:
+		if player is op:
+			loop all players:
+				set {combat::%loop-player%} to false
+		else:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cYou must be OP to preform this action" to player
+			send "" to player
+
+command /CombatTagMe [<Text>]:
+	permission: Dangerzone.CombatTagMe
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /CombatTagMe <True/False>" to player
+			send "" to player
+		if arg 1 is not "True" or "False":
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /CombatTagMe <True/False>" to player
+			send "" to player
+		if arg 1 is "True":
+			set {combat::%player%} to true
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7] &cYou are now Combat Tagged"
+		if arg 1 is "False":
+			set {combat::%player%} to false
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7] &cYou are no longer Combat Tagged"
+
+
+#========================Chaos=====================
+
+on death:
+	if group of player is "ci":
+		execute command "lp user %player% parent set default"
+
+on join:
+	if group of player is "ci":
+		wait 1 second
+		execute command "lp user %player% parent set default"
+		execute command "minecraft:tp %player% 466 60 83"
+		execute command "minecraft:clear %player%"
+	if group of player is "permci":
+		wait 1 second
+		execute command "minecraft:tp %player% 268 91 510"
+on respawn:
+	wait 1 second
+	if group of player is "permci":
+		execute command "kit permci %player%"
+
+#======================Perm guns==========================
+
+on respawn:
+	if player has permission "dangerzone.permak":
+		wait 0.5 second
+		execute command "kit permak %player%"
+	if player has permission "dangerzone.permde":
+		wait 0.5 second
+		execute command "kit permdeagle %player%"
+	if player has permission "dangerzone.permm82":
+		wait 0.5 second
+		execute command "kit permm82 %player%"
+					
+#Togglepermci
+
+#====================Anti- Safezoning in Combat ==========================
+
+on region enter:
+	if {combat::%player%} is true:
+		if "%region%" is "mtf/sd in world ul_SCPWorld":
+			push player north with velocity 1
+		if "%region%" is "mtf/sd-2 in world ul_SCPWorld":
+			push player north with velocity 1
+		if  "%region%" is "cdspawn in world ul_SCPWorld":
+			set {_dir} to direction from location(466, 60, 83, player's world) to player
+			push player {_dir} with velocity 1
+			send "&cYou are in combat" to player
+on region enter:
+	if group of player is "ci" or "permci":
+		if  "%region%" is "cdspawn in world ul_SCPWorld":
+			set {_dir} to direction from location(466, 60, 83, player's world) to player
+			push player {_dir} with velocity 1
+			send "&cCI are not allowed here" to player
+
+
+#==========================SCP 914 ======================
+		
+on region enter:
+	if "%region%" is "scp914 in world ul_SCPWorld":
+		set {scp914::%player%} to true
+		send "&8[SCP-914] &7*SCP-914 Noises*" to player
+on region exit:
+	if "%region%" is "scp914 in world ul_SCPWorld":
+		set {scp914::%player%} to false
+
+#==============Respawn Kit(SCPF ONLY)=====================
+
+on respawn:
+	wait 2 seconds
+	if group of player is "mtf" or "mtfsenior" or "mtftrainer" or "mtfchief" or "mtfdirector":
+		execute command "kit mtf %player%"
+	if group of player is "sd" or "sdsenior" or "sdtrainer" or "sdchief" or "sddirector":
+		execute command "kit sd %player%"
+	if group of player is "scd" or "scdsenior" or "scdtrainer" or "scdchief" or "scddirector":
+		execute command "kit scd %player%"
+	if group of player is "isd" or "isdsenior" or "isdtrainer" or "isdchief" or "isddirector":
+		execute command "kit isd %player%"
+	if group of player is "ia" or "iasenior" or "iatrainer" or "iachief" or "iadirector":
+		execute command "kit ia %player%"
+	if group of player is "sru":
+		execute command "kit sru %player%"
+	if group of player is "apu":
+		execute command "kit apu %player%"
+	if group of player is "alpha-1":
+		execute command "kit alpha-1 %player%"
+	if group of player is "nu-7":
+		execute command "kit nu-7 %player%"
+	if group of player is "epsilon-9":
+		execute command "kit epsilon-9 %player%"
+	if group of player is "beta-7":
+		execute command "kit beta-7 %player%"
+
+
+
+#=========================== Radios ============================
+
+command /radio [<text>]:
+	permission: dangerzone.radios.radio
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /Radio <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.radio":
+					send "&2[Radio] &a%player%&a: %arg 1%" to loop-player
+
+command /mtf [<text>]:
+	permission: dangerzone.radios.mtf
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /MTF <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.mtf":
+					send "&9[MTF] &b%player%&b: %arg 1%" to loop-player
+
+command /sd [<text>]:
+	permission: dangerzone.radios.sd
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /SD <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.sd":
+					send "&8[SD] &7%player%&7: %arg 1%" to loop-player
+
+command /scd [<text>]:
+	permission: dangerzone.radios.scd
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /ScD <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.scd":
+					send "&6[ScD] &e%player%&e: %arg 1%" to loop-player
+
+command /isd [<text>]:
+	permission: dangerzone.radios.isd
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /ISD <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.isd":
+					send "&5[ISD] &d%player%&d: %arg 1%" to loop-player
+
+command /ia [<text>]:
+	permission: dangerzone.radios.ia
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /IA <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.ia":
+					send "&3[IA] &b%player%&b: %arg 1%" to loop-player
+
+command /sru [<text>]:
+	permission: dangerzone.radios.sru
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /SRU <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.sru":
+					send "&c[SRU] &7%player%&7: %arg 1%" to loop-player
+
+command /apu [<text>]:
+	permission: dangerzone.radios.apu
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /APU <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.apu":
+					send "&2[APU] &7%player%&7: %arg 1%" to loop-player
+
+command /rrt [<text>]:
+	permission: dangerzone.radios.rrt
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /RRT <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.rrt":
+					send "&c[RRT] &7%player%&7: %arg 1%" to loop-player
+
+command /chaos [<text>]:
+	permission: dangerzone.radios.chaos
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /Chaos <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.chaos":
+					send "&8[CI] &7%player%&7: %arg 1%" to loop-player
+
+command /permci [<text>]:
+	permission: dangerzone.radios.permci
+	trigger:
+		if arg 1 is not set:
+			send "" to player
+			send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+			send "" to player
+			send "&cUsage: /PermCI <text>" to player
+			send "" to player
+		else:
+			loop all players:
+				if loop-player has permission "dangerzone.radios.permci":
+					send "&8[&eCI&8] &e%player%&7: %arg 1%" to loop-player
+
+
+
+
+
+
+#=============================Set group=============================
+
+# disabled due to being able to set to mtfdirector,etc
+# ask heroducktape for backup of it
+
+#=========================Delete my armor===========================
+
+command /DeleteMyArmor:
+	trigger:
+		execute command "replaceitem entity %player% armor.head air"
+		execute command "replaceitem entity %player% armor.chest air"
+		execute command "replaceitem entity %player% armor.legs air"
+		execute command "replaceitem entity %player% armor.feet air"
+		execute command "effect remove %player%"
+		send "" to player
+		send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+		send "" to player
+		send "&cArmor Cleared" to player
+		send "" to player
+
+command /DeleteMyHelm:
+	trigger:
+		execute command "replaceitem entity %player% armor.head air"
+		execute command "effect remove %player%"
+		send "" to player
+		send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+		send "" to player
+		send "&cArmor Cleared" to player
+		send "" to player
+
+command /DeleteMychest:
+	trigger:
+		execute command "replaceitem entity %player% armor.chest air"
+		execute command "effect remove %player%"
+		send "" to player
+		send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+		send "" to player
+		send "&cArmor Cleared" to player
+		send "" to player
+
+command /DeleteMyleggings:
+	trigger:
+		execute command "replaceitem entity %player% armor.legs air"
+		execute command "effect remove %player%"
+		send "" to player
+		send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+		send "" to player
+		send "&cArmor Cleared" to player
+		send "" to player
+
+command /DeleteMyboots:
+	trigger:
+		execute command "replaceitem entity %player% armor.feet air"
+		execute command "effect remove %player%"
+		send "" to player
+		send "&7[&6!&7] &cD&7-&fZone &7[&6!&7]" to player
+		send "" to player
+		send "&cArmor Cleared" to player
+		send "" to player
+
+
+#========================Raid Announcement==========================
+
+command /Raidreload:
+	permission: Dangerzone.RaidReload
+	trigger:
+		set {raid} to false
+
+command /Raidreloadon:
+	permission: Dangerzone.RaidReload
+	trigger:
+		set {raid} to true
+
+command /Raid:
+	permission: Dangerzone.Raid
+	trigger:
+		if {raid} is false:
+			set {raid} to true
+			send "&f[LOUD-SPEAKER] &cAttention all foundation personnel. &e%player%&c has initiated a RAID. All SCPF prepare to face the oblivion in which call themselfs &8CI" to all players
+			wait 2 seconds
+			send "&f[LOUD-SPEAKER] &cThe raid will officially start in &41 MINUTE" to all players
+			wait 1 minute
+			send "&f[LOUD-SPEAKER] &cThe Raid is now commencing." to all players
+			loop all players:
+				if loop-player has permission "dangerzone.friendly.scpf":
+					apply speed 2 to loop-player for 30 seconds
+			wait 0.5 seconds
+			send "&8*Siren noises*" to all players
+			wait 0.5 seconds
+			send "&8*Siren noises*" to all players
+			wait 0.5 seconds
+			send "&8*Siren noises*" to all players
+			wait 1 minute
+			send "&f[LOUD-SPEAKER] &cThe raid will cease in &48 MINUTES" to all players
+			wait 4 minutes
+			send "&f[LOUD-SPEAKER] &cThe raid will cease in &44 MINUTES." to all players
+			wait 1 minute
+			send "&f[LOUD-SPEAKER] &cThe raid will cease in &41 MINUTE." to all players
+			wait 1 minute
+			send "&f[LOUD SPEAKER] &cThe raid has ceased, All foundation personnel have 1 minute to return to the facility" to all players
+			loop all players:
+				if loop-player has permission "dangerzone.friendly.scpf":
+					apply speed 2 to loop-player for 30 seconds
+			wait 1 minute
+			send "&f[LOUD SPEAKER] &cAll foundation personnel should be INSIDE the facility and resuming normal operations now"
+			set {raid} to false
+			stop
+		else:
+			send "&cThere is already a raid taking place" to player
+
+on disconnect:
+	if {raid} is true:
+		if group of player is "ci" or "permci":
+			execute console command "minecraft:clear %player%"
+#==========================Ec in combat==========================
+
+on right click on ender chest:
+	if {combat::%player%} is true:
+		cancel event
+		send "&cYou are in combat" to player
+
+
+command /ultimatechaos:
+	trigger:
+		if player is OP:
+			loop all players:
+				if group of loop-player is "default":
+					execute command "lp user %loop-player% parent set CI"
+					execute command "kit ci %loop-player%"
+
+#======================IA Door=========================
+
+command /Open:
+	permission: Dangerzone.IA.open
+	trigger:
+		execute command "setblock 410 38 186 redstone_block"
+
+#======================VILLAGER'S=======================
+# corrupt sd
+on right click on barrier:
+	if location of target block is location at 411.5, 56.5, 171.5 of the world "ul_SCPWorld":
+		execute console command "shop page open corrupted %player%"
+	else if location of target block is location at 411.5, 57.5, 171.5 of the world "ul_SCPWorld":
+		execute console command "shop page open corrupted %player%"
+# class-d (jerold)
+on right click on barrier:
+	if location of target block is location at 473.5, 60.5, 50.5 of the world "ul_SCPWorld":
+		execute console command "shop page open class-d %player%"
+	else if location of target block is location at 473.5, 61.5, 50.5 of the world "ul_SCPWorld":
+		execute console command "shop page open class-d %player%"
+# advisor (charles)
+on right click on barrier:
+	if location of target block is location at 469.5, 60.5, 75.5 of the world "ul_SCPWorld":
+		open virtual chest inventory with size 3 named "&8What would you like to know?" to player
+		wait 1 tick
+		format gui slot 10 of player with gold ingot named "&fHow do I make money?" to run:
+			close player's inventory
+			send "&9Charles: &fYou can sign up to be a janitor near the maintenance room, you can also do missions for the CI or you can click on the money blocks to receive money. You can also join our discord to find a special /redeem code." to player
+		format gui slot 12 of player with iron pickaxe named "&fHow do I escape?" to run:
+			close player's inventory
+			send "&9Charles: &fBack in the kitchen you will find my friend Jerold. He sells many items that can help you escape like keycards, the higher level of keycard, the more doors it can open, but the more expensive they are. But any keycard will do, it's just more difficult." to player
+		format gui slot 14 of player with book named "&fHow do I apply for foundation personnel?" to run:
+			close player's inventory
+			send "&9Charles: &fYou can apply in our discord. Do /discord and click on the message to join, next go to the application channel and submit your application." to player
+		format gui slot 16 of player with paper named "&fWhat's new?" to run:
+			close player's inventory
+			send "&9Charles: &fWe've recently added a new janitor job. You can sign up by right clicking on the janitor and right click on dirt stains (brown carpets) with the mop to receive money." to player
+	else if location of target block is location at 469.5, 61.5, 75.5 of the world "ul_SCPWorld":
+		open virtual chest inventory with size 3 named "&8What would you like to know?" to player
+		wait 1 tick
+		format gui slot 10 of player with gold ingot named "&fHow do I make money?" to run:
+			close player's inventory
+			send "&9Charles: &fYou can sign up to be a janitor near the maintenance room. You can also do missions for the CI." to player
+		format gui slot 12 of player with iron pickaxe named "&fHow do I escape?" to run:
+			close player's inventory
+			send "&9Charles: &fBack in the kitchen you will find my friend Jerold. He sells many items that can help you escape like keycards, the higher level of keycard, the more doors it can open, but the more expensive they are. But any keycard will do, it's just more difficult." to player
+		format gui slot 14 of player with book named "&fHow do I apply for foundation personnel?" to run:
+			close player's inventory
+			send "&9Charles: &fYou can apply in our discord. Do /discord and click on the message to join, next go to the application channel and submit your application." to player
+		format gui slot 16 of player with paper named "&fWhat's new?" to run:
+			close player's inventory
+			send "&9Charles: &fWe've recently added a new janitor job. You can sign up by right clicking on the janitor and right click on dirt stains (brown carpets) with the mop to receive money." to player
+
+#new map things - ------------------------------------------------------------------------------------------------------------------------------------
+on right click on barrier:
+	if location of target block is location at 3.5, 51.5, 17.5 of the world "map":
+		open virtual chest inventory with size 3 named "&8What would you like to know?" to player
+		wait 1 tick
+		format gui slot 10 of player with gold ingot named "&fHow do I make money?" to run:
+			close player's inventory
+			send "&9Charles: &fYou can sign up to be a janitor near the maintenance room, you can also do missions for the CI or you can click on the money blocks to receive money. You can also join our discord to find a special /redeem code." to player
+		format gui slot 12 of player with iron pickaxe named "&fHow do I escape?" to run:
+			close player's inventory
+			send "&9Charles: &fBack in the kitchen you will find my friend Jerold. He sells many items that can help you escape like keycards, the higher level of keycard, the more doors it can open, but the more expensive they are. But any keycard will do, it's just more difficult." to player
+		format gui slot 14 of player with book named "&fHow do I apply for foundation personnel?" to run:
+			close player's inventory
+			send "&9Charles: &fYou can apply in our discord. Do /discord and click on the message to join, next go to the application channel and submit your application." to player
+		format gui slot 16 of player with paper named "&fWhat's new?" to run:
+			close player's inventory
+			send "&9Charles: &fWe've recently added a new janitor job. You can sign up by right clicking on the janitor and right click on dirt stains (brown carpets) with the mop to receive money." to player
+	else if location of target block is location at 3.5, 50.5, 17.5 of the world "map":
+		open virtual chest inventory with size 3 named "&8What would you like to know?" to player
+		wait 1 tick
+		format gui slot 10 of player with gold ingot named "&fHow do I make money?" to run:
+			close player's inventory
+			send "&9Charles: &fYou can sign up to be a janitor near the maintenance room. You can also do missions for the CI." to player
+		format gui slot 12 of player with iron pickaxe named "&fHow do I escape?" to run:
+			close player's inventory
+			send "&9Charles: &fBack in the kitchen you will find my friend Jerold. He sells many items that can help you escape like keycards, the higher level of keycard, the more doors it can open, but the more expensive they are. But any keycard will do, it's just more difficult." to player
+		format gui slot 14 of player with book named "&fHow do I apply for foundation personnel?" to run:
+			close player's inventory
+			send "&9Charles: &fYou can apply in our discord. Do /discord and click on the message to join, next go to the application channel and submit your application." to player
+		format gui slot 16 of player with paper named "&fWhat's new?" to run:
+			close player's inventory
+			send "&9Charles: &fWe've recently added a new janitor job. You can sign up by right clicking on the janitor and right click on dirt stains (brown carpets) with the mop to receive money." to player
+
+
+#====================Anti Block Edit====================
+on craft:
+	if gamemode of player is not creative:
+		cancel event
+		send "&cI dont think so!" to player
+on right click on campfire:
+	if gamemode of player is not creative:
+		cancel event
+
